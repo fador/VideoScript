@@ -1,0 +1,84 @@
+init:
+  resolution: 1280x720
+  target-fps: 60
+  description: Test file for videoScript
+scene:
+  - object:
+      name: "Title text"
+      type: textbox
+      source: "Japanese Animation"
+      start_time: 0
+      end_time: 5
+      transform:
+        position: [0, 0, 0]
+        scale: [1, 1, 1]
+        rotation: [0, 0, 0]
+      tweens:
+        - tween:
+            type: ease-in-out
+            start_state:
+              position: [-200, 0, 0]
+              scale: [1, 1, 1]
+              rotation: [0, 0, 0]
+            end_state:
+              position: [0, 0, 0]
+              scale: [1, 1, 1]
+              rotation: [0, 0, 0]
+            start_time: 0
+            end_time: 1
+      effects:
+        - effect:
+            name: fade-in
+            start_time: 0
+            end_time: 1
+
+  - object:
+      name: "tts"
+      type: tts
+      source: "Japanese animation, also known as anime, has become popular worldwide. It features diverse art styles, genres, and storytelling techniques."
+      start_time: 5
+      end_time: 15
+
+  - object:
+      name: "BG_video"
+      type: video
+      source: "anime_clip.mp4"
+      start_time: 15
+      end_time: 25
+      transform:
+        position: [0, 0, 0]
+        scale: [1, 1, 1]
+        rotation: [0, 0, 0]
+      effects:
+        - effect:
+            name: crossfade
+            start_time: 15
+            end_time: 16
+
+  - object:
+      name: "Subtitle 1"
+      type: textbox
+      source: "Anime has a rich history and global impact on pop culture."
+      start_time: 25
+      end_time: 30
+      transform:
+        position: [0, 0, 0]
+        scale: [1, 1, 1]
+        rotation: [0, 0, 0]
+      tween:
+        type: ease-in-out
+        start_state:
+          position: [0, 0, 0]
+          scale: [1, 1, 1]
+          rotation: [0, 0, 0]
+        end_state:
+          position: [0, -200, 0]
+          scale: [1, 1, 1]
+          rotation: [0, 0, 0]
+        start_time: 29
+        end_time: 30
+      effects:
+        - effect:
+            name: fade-out
+            start_time: 29
+            end_time: 30
