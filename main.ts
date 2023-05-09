@@ -12,7 +12,7 @@ async function parseVideoScript(filePath) {
 async function main(inputPath) {
   const videoScriptData = await parseVideoScript(inputPath);
   
-  const scene = new VideoScriptScene(videoScriptData.scene);
+  const scene = new VideoScriptScene(videoScriptData.init, videoScriptData.scene);
   
   await scene.preprocess();
   await scene.process();
