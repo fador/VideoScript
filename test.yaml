@@ -1,97 +1,116 @@
-init:
-  resolution: 1280x720
-  target_fps: 60
-  description: Test file for videoScript
 scene:
-  - object:
-      name: "Title text"
-      type: textbox
-      source: "Japanese Animation"
-      start_time: 0
-      end_time: 5
-      transform:
-        position: [0, 0, 0]
-        scale: [1, 1, 1]
-        rotation: [0, 0, 0]
-      tweens:
-        - tween:
-            type: ease-in-out
-            start_state:
-              position: [-200, 0, 0]
-              scale: [1, 1, 1]
-              rotation: [0, 0, 0]
-            end_state:
-              position: [0, 0, 0]
-              scale: [1, 1, 1]
-              rotation: [0, 0, 0]
-            start_time: 0
-            end_time: 1
-        - tween:
-            type: ease-in-out
-            start_state:
-              position: [0, 0, 0]
-              scale: [1, 1, 1]
-              rotation: [0, 0, 0]
-            end_state:
-              position: [1400, 0, 0]
-              scale: [1, 1, 1]
-              rotation: [0, 0, 0]
-            start_time: 4
-            end_time: 5
-      effects:
-        - effect:
-            name: fade-in
-            start_time: 0
-            end_time: 1
-
-  - object:
-      name: "tts"
-      type: tts
-      source: "Japanese animation, also known as anime, has become popular worldwide. It features diverse art styles, genres, and storytelling techniques."
-      start_time: 5
-      end_time: 15
-
-  - object:
-      name: "BG_video"
-      type: video
-      source: "anime_clip.mp4"
-      start_time: 5
-      end_time: 15
-      transform:
-        position: [0, 0, 0]
-        scale: [1, 1, 1]
-        rotation: [0, 0, 0]
-      effects:
-        - effect:
-            name: crossfade
-            start_time: 15
-            end_time: 16
-
-  - object:
-      name: "Subtitle 1"
-      type: textbox
-      source: "Anime has a rich history and global impact on pop culture."
-      start_time: 15
-      end_time: 20
-      transform:
-        position: [0, 0, 0]
-        scale: [1, 1, 1]
-        rotation: [0, 0, 0]
-      tweens:
-        - tween:
-            type: ease-in-out
-            start_state:
-              position: [0, 0, 0]
-              scale: [1, 1, 1]
-              rotation: [0, 0, 0]
-            end_state:
-              position: [0, -200, 0]
-              scale: [1, 1, 1]
-              rotation: [0, 0, 0]
-            start_time: 19
-            end_time: 20
-      effects:
-        - effect:
-            name: fade-out
-            start_time: 19
-            end_time: 20
+  resolution: "1280x720"
+  target_fps: 60
+  description: "Test file for videoScript"
+objects: [
+  {
+    name: "Title text",
+    type: textbox,
+    source: "Japanese Animation",
+    start_time: 0,
+    end_time: 5,
+    transform: {
+      pos: [0, 0, 0],
+      rot: [0, 0, 0]
+    },
+    tweens: [
+      {
+        type: ease-in-out,
+        states: [
+          {
+            time: 0,
+            pos: [-200, 0, 0],
+            rot: [0, 0, 0]
+          },
+          {
+            time: 1,
+            pos: [0, 0, 0],
+            rot: [0, 0, 0]
+          }
+        ]
+      },
+      {
+        type: ease-in-out,
+        states: [
+          {
+            time: 4,
+            pos: [0, 0, 0],
+            rot: [0, 0, 0]
+          },
+          {
+            time: 5,
+            pos: [1400, 0, 0],
+            rot: [0, 0, 0]
+          }
+        ]
+      }
+    ],
+    effects:[
+      {
+        name: fade-in,
+        start_time: 0,
+        end_time: 1
+      }
+    ]
+  },
+  {
+    name: "tts",
+    type: tts,
+    source: "Japanese animation, also known as anime, has become popular worldwide. It features diverse art styles, genres, and storytelling techniques.",
+    start_time: 5,
+    end_time: 15
+  },
+  {
+    name: "BG_video",
+    type: video,
+    source: "anime_clip.mp4",
+    start_time: 5,
+    end_time: 15,
+    transform: {
+      pos: [0, 0, 0],
+      rot: [0, 0, 0]
+    },
+    effects: [
+      {
+        name: crossfade,
+        start_time: 15,
+        end_time: 16
+      }
+    ]
+  },
+  {
+    name: "Subtitle 1",
+    type: textbox,
+    source: "Anime has a rich history and global impact on pop culture.",
+    start_time: 15,
+    end_time: 20,
+    transform: {
+      pos: [0, 0, 0],
+      rot: [0, 0, 0]
+    },
+    tweens: [
+      {
+        type: ease-in-out,
+        states: [
+          {
+            time: 19,
+            pos: [0, 0, 0],
+            rot: [0, 0, 0]
+          },
+          {
+            time: 20,
+            pos: [0, -200, 0],
+            rot: [0, 0, 0]
+          }
+        ]
+      }
+    ],
+    effects: [
+      {
+        name: fade-out,
+        start_time: 19,
+        end_time: 20
+      }
+    ]
+  },
+]

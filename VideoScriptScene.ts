@@ -20,7 +20,7 @@ export class VideoScriptScene {
     
     this.current_image = new Image(this.width, this.height);
     
-    this.objects = sceneData.map((objData) => new VideoScriptObject(objData.object));
+    this.objects = sceneData.map((objData) => new VideoScriptObject(objData));
     //console.log(Deno.inspect(this.objects));
     this.activeObjects = new Map();
   }
@@ -93,7 +93,7 @@ export class VideoScriptScene {
       for (const obj of this.activeObjects.values()) {
         await obj.process(currentTime);
         if(obj.image != null) {
-          this.current_image.composite(obj.image, obj.transform.position[0], obj.transform.position[1]);          
+          this.current_image.composite(obj.image, obj.transform.pos[0], obj.transform.pos[1]);          
         }
       }
 
@@ -107,7 +107,7 @@ export class VideoScriptScene {
       //console.log(`Data: ${this.current_image.bitmap.length} Written ${written}`);
       
       
-      //if(frame > 100) break;
+      if(frame > 100) break;
       
       //const encoded = await this.current_image.encode();
       // const outputDir = `output/out_${frame}.png`;

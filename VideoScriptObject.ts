@@ -70,11 +70,11 @@ export class VideoScriptObject {
     // Add your TTS processing logic here
   }
 
-  getTweenProgress(tween, currentTime) {
-    const duration = tween.end_time - tween.start_time;
-    const progress = (currentTime - tween.start_time) / duration;
+  getTweenProgress(type, tween1, tween2, currentTime) {
+    const duration = tween1.time - tween2.time;
+    const progress = (currentTime - tween1.time) / duration;
 
-    switch (tween.type) {
+    switch (type) {
       case "linear":
         return progress;
       case "ease-in":
@@ -89,31 +89,36 @@ export class VideoScriptObject {
     }
   }
 
-  applyTween(tween, progress) {
+  applyTween(tween1, tween2, progress) {
     const interpolate = (start, end) => start + progress * (end - start);
     //console.log(Deno.inspect(tween.start_state));
-    for (const key in tween.start_state) {
-      for(const value in key) {
-        this.transform[key][value] = interpolate(tween.start_state[key][value], tween.end_state[key][value]);
+    for (const key in tween1) {
+      if(key == 'time') continue;
+      for(const value in key) {        
+        this.transform[key][value] = interpolate(tween1[key][value], tween2[key][value]);
       }
     }
   }
 
   async applyTweens(currentTime) {    
-    for (const tween_ of this.tweens) {
-      const tween = tween_.tween;
-      //console.log(`${currentTime} >= ${tween.start_time} && ${currentTime} <= ${tween.end_time}`);  
-      if (currentTime >= parseFloat(tween.start_time) && currentTime <= parseFloat(tween.end_time)) {
-        const progress = this.getTweenProgress(tween, currentTime);
-        this.applyTween(tween, progress);
+    
+    for(const tween_idx in this.tweens) {
+      const tween = this.tweens[tween_idx];
+      //console.log(Deno.inspect(this.tweens));
+      if(tween.states.length < 2) continue;
+      for(let i = 1; i < tween.states.length; i++) {
+        //console.log(`${currentTime} >= ${tween.start_time} && ${currentTime} <= ${tween.end_time}`);  
+        if (currentTime >= parseFloat(tween.states[i-1].time) && currentTime <= parseFloat(tween.states[i].time)) {
+          let progress = this.getTweenProgress(tween.type, tween.states[i-1], tween.states[i], currentTime);
+          if(progress > 1.0) progress = 1.0;
+          this.applyTween(tween.states[i-1], tween.states[i], progress);
+        }
       }
     }
   }
 
   applyFade(effect, progress, image) {
     const strength = effect.name === "fade-in" ? progress : 1.0 - progress;
-
-
     for (let y = 0; y < image.height; y++) {
       for (let x = 0; x < image.width; x++) {
         // Just change the alpha value in the RGBA array
@@ -128,8 +133,7 @@ export class VideoScriptObject {
   }
 
   async applyEffects(currentTime) {
-    for (const effect_ of this.effects) {
-      const effect = effect_.effect;
+    for (const effect of this.effects) {
       if (currentTime >= parseFloat(effect.start_time) && currentTime <= parseFloat(effect.end_time)) {
         const progress = this.getEffectProgress(effect, currentTime);
 
