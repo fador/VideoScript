@@ -93,7 +93,8 @@ export class VideoScriptScene {
       for (const obj of this.activeObjects.values()) {
         await obj.process(currentTime);
         if(obj.image != null) {
-          this.current_image.composite(obj.image, obj.transform.pos[0], obj.transform.pos[1]);          
+          this.current_image.composite(obj.image, obj.transform.pos[0], obj.transform.pos[1]);
+          //console.log(`Composite: ${obj.image.width}x${obj.image.height}: ${obj.transform.pos[0]}, ${obj.transform.pos[1]}`);
         }
       }
 
@@ -101,10 +102,11 @@ export class VideoScriptScene {
       frame = frame + 1;
       
       let written = 0;
-      for(let datasize = 0; datasize < this.width*this.height*4; datasize += 1000) {
-        written += await ffmpeg.stdin.write(this.current_image.bitmap.subarray(datasize,datasize+1000));
+      // Write 1kB at a time since there is a limit in the buffer
+      for(let datasize = 0; datasize < this.width*this.height*4; datasize += 1024) {
+        written += await ffmpeg.stdin.write(this.current_image.bitmap.subarray(datasize,datasize+1024));
       }
-      //console.log(`Data: ${this.current_image.bitmap.length} Written ${written}`);
+            
       
       
       if(frame > 100) break;

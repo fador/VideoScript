@@ -11,6 +11,7 @@ objects: [
     end_time: 5,
     transform: {
       pos: [0, 0, 0],
+      scale: [1,1,1],
       rot: [0, 0, 0]
     },
     tweens: [
@@ -20,11 +21,37 @@ objects: [
           {
             time: 0,
             pos: [-200, 0, 0],
+            scale: [1,1,1],
             rot: [0, 0, 0]
           },
           {
             time: 1,
+            pos: [110, 100, 0],
+            scale: [1,1,1],
+            rot: [0, 0, 0]
+          }
+        ]
+      },
+      {
+        type: ease-in-out,
+        states: [
+          {
+            time: 2,
+            pos: [110, 100, 0],
+            scale: [1,1,1],
+            rot: [0, 0, 0]
+          },
+          {
+            time: 3,
+            pos: [110, 100, 0],
+            scale: [2,3,0],
+            rot: [0, 0, 0]
+          }
+          ,
+          {
+            time: 4,
             pos: [0, 0, 0],
+            scale: [1,1,1],
             rot: [0, 0, 0]
           }
         ]
@@ -35,11 +62,13 @@ objects: [
           {
             time: 4,
             pos: [0, 0, 0],
+            scale: [1,1,1],
             rot: [0, 0, 0]
           },
           {
             time: 5,
             pos: [1400, 0, 0],
+            scale: [1,1,1],
             rot: [0, 0, 0]
           }
         ]
@@ -68,6 +97,7 @@ objects: [
     end_time: 15,
     transform: {
       pos: [0, 0, 0],
+      scale: [1,1,1],
       rot: [0, 0, 0]
     },
     effects: [
@@ -86,6 +116,7 @@ objects: [
     end_time: 20,
     transform: {
       pos: [0, 0, 0],
+      scale: [1,1,1],
       rot: [0, 0, 0]
     },
     tweens: [
@@ -95,11 +126,13 @@ objects: [
           {
             time: 19,
             pos: [0, 0, 0],
+            scale: [1,1,1],
             rot: [0, 0, 0]
           },
           {
             time: 20,
             pos: [0, -200, 0],
+            scale: [1,1,1],
             rot: [0, 0, 0]
           }
         ]

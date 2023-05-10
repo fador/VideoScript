@@ -1,5 +1,6 @@
-//import { FfmpegClass, ffmpeg } from "https://deno.land/x/deno_ffmpeg@v3.1.0/mod.ts";
 import {Image} from "https://deno.land/x/imagescript@1.2.15/mod.ts";
+
+
 
 export class VideoScriptObject {
   constructor(objData) {
@@ -37,7 +38,72 @@ export class VideoScriptObject {
     }
 
     await this.applyTweens(currentTime);
+    if(this.transform.scale[0] != 1 || this.transform.scale[1] != 1) {
+      await this.scaleImage(this.transform.scale[0], this.transform.scale[1]);
+    }
     await this.applyEffects(currentTime);
+  }
+
+
+  getPixel(image, x, y) {
+    let pos = (y * image.width + x) * 4;
+    return [
+      image.bitmap[pos], // R
+      image.bitmap[pos + 1], // G
+      image.bitmap[pos + 2], // B
+      image.bitmap[pos + 3] // A
+    ];
+  }
+
+  lerp(start, end, t) {
+    return start * (1.0 - t) + end * t;
+  }
+
+  bilinearInterpolation(image, x, y) {
+    let x1 = Math.floor(x);
+    let y1 = Math.floor(y);
+    let x2 = Math.ceil(x);
+    let y2 = Math.ceil(y);
+
+    let v1 = this.getPixel(image, x1, y1);
+    let v2 = this.getPixel(image, x2, y1);
+    let v3 = this.getPixel(image, x1, y2);
+    let v4 = this.getPixel(image, x2, y2);
+
+    let out = [0,0,0,0];
+
+    for(let i = 0; i < 4; i++) {
+      let r1 = this.lerp(v1[i], v2[i], x - x1);
+      let r2 = this.lerp(v3[i], v4[i], x - x1);
+      out[i] = this.lerp(r1, r2, y - y1);
+    }
+
+    return out;
+  }
+  
+  async scaleImage(scaleX, scaleY) {
+    
+    let newWidth = Math.floor(this.image.width * scaleX);
+    let newHeight = Math.floor(this.image.height * scaleY);
+    
+    //console.log(`Scale: ${scaleX}x${scaleY} ${newWidth}x${newHeight}`);
+    
+    
+    var newImage = new Image(newWidth, newHeight);
+    for (let y = 0; y < newHeight; y++) {
+      for (let x = 0; x < newWidth; x++) {
+        let srcX = x / scaleX;
+        let srcY = y / scaleY;
+        let interpolated = this.bilinearInterpolation(this.image, srcX, srcY);
+        let newPos = (y * newWidth + x) * 4;
+        //console.log(interpolated);
+        newImage.bitmap[newPos] = interpolated[0]; // R
+        newImage.bitmap[newPos + 1] = interpolated[1]; // G
+        newImage.bitmap[newPos + 2] = interpolated[2]; // B
+        newImage.bitmap[newPos + 3] = interpolated[3]; // A
+      }
+    }
+    this.image = newImage;
   }
 
   async processVideo() {
