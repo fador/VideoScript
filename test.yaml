@@ -6,7 +6,7 @@ objects: [
   {
     name: "Title text",
     type: textbox,
-    source: "Japanese Animation",
+    source: "VideoScript testing",
     start_time: 0,
     end_time: 5,
     transform: {
@@ -27,7 +27,7 @@ objects: [
           {
             time: 1,
             pos: [110, 100, 0],
-            scale: [1,1,1],
+            scale: [0.5,1,1],
             rot: [0, 0, 0]
           }
         ]
@@ -38,14 +38,14 @@ objects: [
           {
             time: 2,
             pos: [110, 100, 0],
-            scale: [1,1,1],
+            scale: [0.5,1,1],
             rot: [0, 0, 0]
           },
           {
             time: 3,
             pos: [110, 100, 0],
             scale: [2,3,0],
-            rot: [0, 0, 0]
+            rot: [0, 0, 360]
           }
           ,
           {
@@ -79,6 +79,11 @@ objects: [
         name: fade-in,
         start_time: 0,
         end_time: 1
+      },
+      {
+        name: fade-out,
+        start_time: 4,
+        end_time: 5
       }
     ]
   },
@@ -109,11 +114,49 @@ objects: [
     ]
   },
   {
+    name: "BG_image",
+    type: image,
+    source: "D:/stable_diffusion/outputs/000025.10f19da4.635272433.png",
+    start_time: 0,
+    end_time: 10,
+    transform: {
+      pos: [500, 400, 0],
+      scale: [1,1,1],
+      rot: [0, 0, 0]
+    },
+    tweens: [
+      {
+        type: linear,
+        states: [
+          {
+            time: 0,
+            pos: [400, 200, 0],
+            scale: [1,1,1],
+            rot: [0, 0, 0]
+          },
+          {
+            time: 20,
+            pos: [400, 200, 0],
+            scale: [1,1,1],
+            rot: [0, 0, 1080]
+          }
+        ]
+      },
+    ],
+    effects: [
+      {
+        name: fade-out,
+        start_time: 5,
+        end_time: 10
+      }
+    ]
+  },  
+  {
     name: "Subtitle 1",
     type: textbox,
-    source: "Anime has a rich history and global impact on pop culture.",
-    start_time: 15,
-    end_time: 20,
+    source: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    start_time: 5,
+    end_time: 10,
     transform: {
       pos: [0, 0, 0],
       scale: [1,1,1],
@@ -124,13 +167,13 @@ objects: [
         type: ease-in-out,
         states: [
           {
-            time: 19,
+            time: 9,
             pos: [0, 0, 0],
             scale: [1,1,1],
             rot: [0, 0, 0]
           },
           {
-            time: 20,
+            time: 10,
             pos: [0, -200, 0],
             scale: [1,1,1],
             rot: [0, 0, 0]
@@ -141,8 +184,8 @@ objects: [
     effects: [
       {
         name: fade-out,
-        start_time: 19,
-        end_time: 20
+        start_time: 9,
+        end_time: 10
       }
     ]
   },

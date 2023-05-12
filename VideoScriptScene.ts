@@ -109,7 +109,7 @@ export class VideoScriptScene {
             
       
       
-      if(frame > 100) break;
+      //if(frame > 300) break;
       
       //const encoded = await this.current_image.encode();
       // const outputDir = `output/out_${frame}.png`;
