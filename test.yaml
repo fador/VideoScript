@@ -1,6 +1,7 @@
 scene:
   resolution: "1280x720"
   target_fps: 60
+  configuration: "{ bg_color: 0x000000 }"
   description: "Test file for videoScript"
 objects: [
   {
@@ -97,9 +98,9 @@ objects: [
   {
     name: "BG_video",
     type: video,
-    source: "anime_clip.mp4",
+    source: "testdata/anime_clip.mp4",
     start_time: 5,
-    end_time: 15,
+    end_time: 10,
     transform: {
       pos: [0, 0, 0],
       scale: [1,1,1],
@@ -116,7 +117,7 @@ objects: [
   {
     name: "BG_image",
     type: image,
-    source: "D:/stable_diffusion/outputs/000025.10f19da4.635272433.png",
+    source: "testdata/000025.10f19da4.635272433.png",
     start_time: 0,
     end_time: 10,
     transform: {

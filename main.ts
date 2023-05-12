@@ -18,5 +18,10 @@ async function main(inputPath) {
   await scene.process();
 }
 
-const inputPath = "test.yaml";
+if (Deno.args.length < 1) {
+  console.log("Usage: deno run main.ts [VideoScript file]");  
+  Deno.exit();
+}
+
+const inputPath = Deno.args[0]; 
 main(inputPath);
