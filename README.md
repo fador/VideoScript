@@ -17,6 +17,10 @@ VideoScript sample parser is built on top of Deno JavaScript framework.
 - Support for video, audio, and user-defined objects (for svg shapes).
 - Additional effects beyond the currently available fade-in and fade-out.
 
+## Requirements:
+
+- The current VideoScript parser library is tested on Deno 1.33.2
+- ffmpeg binary is needed in the Path in order to create the output video
 
 ## VideoScript Format
 
@@ -63,6 +67,10 @@ objects: [
   },
 ]
 ```
+
+## License:
+
+VideoScript repository is licensed with a permissive 2-clause BSD license.
 
 ## Contribution:
 
